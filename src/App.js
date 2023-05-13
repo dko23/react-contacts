@@ -15,6 +15,17 @@ export default function App() {
   function handleAddContact(person) {
     setState([...state, person])
   }
+
+  function handleDeleteContact(phone) {
+    let deleteContact = state.filter((user) => user.phone !== phone)
+    setState(deleteContact);
+  }
+  
+  function handleEditContact(phone,updatedUser){
+    const updatedContacts=(state.map(user => user.phone === phone ? updatedUser : user));
+    setState(updatedContacts);
+  };
+
   
   return (
     <>
@@ -24,7 +35,7 @@ export default function App() {
     <ContactsForm old={handleAddContact }/>
     </div> 
     <div className='col-md-8'>
-    <Contact book={state} /> 
+    <Contact book={state} delete={handleDeleteContact} edit={handleEditContact} /> 
     </div> 
 </div>
 </div>  
