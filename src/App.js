@@ -1,30 +1,42 @@
 
 import './App.css';
-import { useState } from 'react';
-import Contact from './Contacts';
+// import { useState } from 'react';
+import Contacts from './Contacts';
 import { ContactsForm } from './ContactsForm';
+import { contactUser } from './reducers/contactReducer';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 export default function App() {
 
-  const [state, setState] = useState([
-      { name: "Daniel", phone: "049934303", location: "Accra" },
-      { name: "John", phone: "0894634303", location: "Kumasi" }
-  ]);
+  // const [state, setState] = useState([
+  //     { name: "Daniel", phone: "049934303", location: "Accra" },
+  //     { name: "John", phone: "0894634303", location: "Kumasi" }
+  // ]);
   
+
+  // function handleAddContact(person) {
+  //   setState([...state, person])
+  // }/// when you call the function the onbject becomes the arguement
+
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.contact.users);
+
+
 
   function handleAddContact(person) {
-    setState([...state, person])
+    dispatch(contactUser(person));
   }
 
-  function handleDeleteContact(phone) {
-    let deleteContact = state.filter((user) => user.phone !== phone)
-    setState(deleteContact);
-  }
+  // function handleDeleteContact(phone) {
+  //   let deleteContact = state.filter((user) => user.phone !== phone)
+  //   setState(deleteContact);
+  // }
   
-  function handleEditContact(phone,updatedUser){
-    const updatedContacts=(state.map(user => user.phone === phone ? updatedUser : user));
-    setState(updatedContacts);
-  };
+  // function handleEditContact(phone,updatedUser){
+  //   const updatedContacts=(state.map(user => user.phone === phone ? updatedUser : user));
+  //   setState(updatedContacts);
+  // };
 
   
   return (
@@ -35,7 +47,7 @@ export default function App() {
     <ContactsForm old={handleAddContact }/>
     </div> 
     <div className='col-md-8'>
-    <Contact book={state} delete={handleDeleteContact} edit={handleEditContact} /> 
+    <Contacts book={user}/> 
     </div> 
 </div>
 </div>  
@@ -46,10 +58,4 @@ export default function App() {
 }
 
 
-
-
-
-
-
-
-
+//// for later delete={handleDeleteContact} edit={handleEditContact}

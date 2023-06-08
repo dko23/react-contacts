@@ -12,11 +12,12 @@ export class ContactsForm extends Component {
         this.setState({ [e.target.name]: e.target.value })
       }
 
-    onSubmit = (e) => {
-        e.preventDefault()
-        this.setState(this.props.old)
-        console.log(this.state)
-}
+      onSubmit = (e) => {
+        e.preventDefault();
+        this.props.old(this.state);
+        this.setState({ name: '', phone: '', location: '' });
+      }
+      
 
         render() {
             return (
